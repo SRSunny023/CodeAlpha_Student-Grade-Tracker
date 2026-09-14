@@ -21,14 +21,16 @@ public class Show_All_Student extends JFrame implements ActionListener {
     JButton edit, back, exit;
 
     Teacher_Portal teacherPortal;
+    String type;
 
-    public Show_All_Student(Teacher_Portal teacherPortal) {
+    public Show_All_Student(Teacher_Portal teacherPortal, String type) {
 
         this.teacherPortal = teacherPortal;
+        this.type = type;
 
         createMenu();
-        createLabels();
-        createButtons();
+        createLabels(type);
+        createButtons(type);
         createTable();
         loadStudents();
 
@@ -43,18 +45,27 @@ public class Show_All_Student extends JFrame implements ActionListener {
 
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(this, "Please select a student to edit!", "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Please select a student!", "Error",JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 String name = (String) model.getValueAt(selectedRow, 0);
                 String id = (String) model.getValueAt(selectedRow, 1);
 
-                new Edit_Student(name, id);
+                if(type.equals("showAllStudent")){
 
-                model.setRowCount(0);
-                loadStudents();
+                    new Edit_Student(name, id);
+
+                    model.setRowCount(0);
+                    loadStudents();
+
+                } else{
+
+                    setEnabled(false);
+                    new Enter_Grades(name, id, this);
+
+                }
+
 
             } catch (Exception ex) {
 
@@ -158,8 +169,13 @@ public class Show_All_Student extends JFrame implements ActionListener {
         add(scrollPane);
     }
 
-    private void createButtons() {
-        edit = new JButton("Edit");
+    private void createButtons(String type) {
+
+        if(type.equals("enterGrades")){
+            edit = new JButton("Enter Grade");
+        } else{
+            edit = new JButton("Edit");
+        }
         edit.setFont(new Font("Arial", Font.BOLD, 26));
         edit.setForeground(Color.WHITE);
         edit.setBackground(Color.BLACK);
@@ -187,8 +203,14 @@ public class Show_All_Student extends JFrame implements ActionListener {
         add(exit);
     }
 
-    private void createLabels() {
-        title = new JLabel("All Students");
+    private void createLabels(String type) {
+
+        if(type.equals("enterGrades")){
+            title = new JLabel("Grades Entry");
+        } else{
+            title = new JLabel("All Students");
+        }
+
         title.setBounds(170, 20, 250, 40);
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);

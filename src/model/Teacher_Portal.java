@@ -39,11 +39,14 @@ public class Teacher_Portal extends JFrame implements ActionListener {
         else if (e.getSource() == showAllStudent) {
 
             showButtonsVisible(false);
-            new Show_All_Student(this);
+            new Show_All_Student(this,"showAllStudent");
 
         }
 
         else if (e.getSource() == enterGrades) {
+
+            showButtonsVisible(false);
+            new Show_All_Student(this,"enterGrades");
 
         }
 

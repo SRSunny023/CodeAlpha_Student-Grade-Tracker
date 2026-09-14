@@ -9,6 +9,7 @@ public class Global_Variables {
 
     public static final String DATA_FOLDER = "data/";
     public static final String ICON_FOLDER = "resources/icon/";
+    public static final String GRADES_FOLDER = DATA_FOLDER + "grades/";
 
     public static final String STUDENT_ID = DATA_FOLDER + "Student_ID.txt";
     public static final String CURRENT_SESSION = DATA_FOLDER + "Current_Session.txt";

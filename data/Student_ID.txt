@@ -12,9 +12,9 @@ Tweeny Bird|24-6-11|24-6-11
 Sylvester Cat|26-8-12|26-8-12
 Popeye|25-10-13|25-10-13
 Garfield|26-3-14|26-3-14
-SpongeBob SquarePants|24-12-15|24-12-15
+SpongeBob|24-12-15|24-12-15
 Patrick Star|25-5-16|25-5-16
-Sideward Tentacles|26-7-17|26-7-17
+Sideward|26-7-17|26-7-17
 Ben Tennyson|25-9-18|25-9-18
 Kevin Levin|24-4-19|24-4-19
 Finn Marten|26-11-20|26-11-20
