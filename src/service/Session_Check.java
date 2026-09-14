@@ -1,10 +1,9 @@
 package service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
-import Global.Global_Variables;
-import ui.Main_Menu;
+import java.io.*;
+import global.*;
+import model.*;
+import ui.*;
 
 public class Session_Check {
 
@@ -15,6 +14,7 @@ public class Session_Check {
             BufferedReader br = new BufferedReader(new FileReader(Global_Variables.CURRENT_SESSION));
 
             String line = br.readLine();
+
             if(line==null){
 
                 new Main_Menu();
@@ -22,11 +22,15 @@ public class Session_Check {
             }
 
             String[] parts = line.split("\\|");
-            String userRole = parts[1];
-            if (userRole.equals("Student")) {
-                //
+            String id = parts[1];
+            if (id.equals(Global_Variables.TEACHER_PORTAL_ID)) {
+
+                new Teacher_Portal();
+
             } else {
-                //
+
+                new Student_Portal(id);
+
             }
 
             br.close();

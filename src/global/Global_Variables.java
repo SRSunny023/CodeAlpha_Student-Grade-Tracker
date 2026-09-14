@@ -1,8 +1,11 @@
-package Global;
+package global;
 
 import java.awt.Font;
 
 public class Global_Variables {
+
+    public static final String TEACHER_PORTAL_ID = "26-1-0";
+    public static final String TEACHER_PORTAL_PASS = "26-1-0";
 
     public static final String DATA_FOLDER = "data/";
     public static final String ICON_FOLDER = "resources/icon/";

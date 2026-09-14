@@ -1,8 +1,10 @@
 package ui;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
-import Global.*;
+import global.*;
 import service.Session_Check;
 
 public class Splash_Screen extends JFrame {
@@ -14,6 +16,7 @@ public class Splash_Screen extends JFrame {
         welcomeIconLabel.setBounds(0, 0, Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
         add(welcomeIconLabel);
 
+        getContentPane().setBackground(Color.BLACK);
         setLayout(null);
         setUndecorated(true);
         setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
@@ -39,6 +42,10 @@ public class Splash_Screen extends JFrame {
             e.printStackTrace();
         }
 
+    }
+
+    public static void main(String[] args){
+        new Splash_Screen();
     }
 
 

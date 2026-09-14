@@ -9,6 +9,7 @@ public class Welcome {
     }
 
     public static void main(String[] args){
+        global.Inactivity_Manager.startWatching();
         new Welcome();
     }
 

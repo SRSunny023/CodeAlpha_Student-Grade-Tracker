@@ -5,37 +5,60 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import Global.*;
+import auth.*;
+import global.*;
 
 public class Main_Menu extends JFrame implements ActionListener {
 
-    JButton sP,tP;
+    JButton sP,tP,exit;
+    JPanel leftPanel,rightPanel;
 
     public Main_Menu(){
 
+        leftPanel = new JPanel();
+        rightPanel = new JPanel();
         sP = new JButton("Student Portal");
         tP = new JButton("Teacher Portal");
+        exit = new JButton("Exit");
 
-        sP.setBounds(412,269,200,30);
-        tP.setBounds(412,469,200,30);
+        leftPanel.setLayout(null);
+        rightPanel.setLayout(null);
+
+        leftPanel.setBounds(0,0,512,Global_Variables.WINDOW_HEIGHT);
+        rightPanel.setBounds(513,0,512,Global_Variables.WINDOW_HEIGHT);
+        sP.setBounds(156,369,200,30);
+        tP.setBounds(156,369,200,30);
+        exit.setBounds(312,738,200,30);
+
+        leftPanel.setForeground(Color.WHITE);
+        rightPanel.setForeground(Color.WHITE);
+        sP.setForeground(Color.BLACK);
+        tP.setForeground(Color.WHITE);
+        exit.setForeground(Color.BLACK);
+
+        leftPanel.setBackground(Color.BLACK);
+        rightPanel.setBackground(Color.WHITE);
+        sP.setBackground(Color.WHITE);
+        tP.setBackground(Color.BLACK);
+        exit.setBackground(Color.ORANGE);
 
         sP.setFont(Global_Variables.btnFont);
         tP.setFont(Global_Variables.btnFont);
-
-        sP.setForeground(Color.WHITE);
-        tP.setForeground(Color.WHITE);
-
-        sP.setBackground(Color.BLACK);
-        tP.setBackground(Color.BLACK);
+        exit.setFont(Global_Variables.btnFont);
 
         sP.setFocusPainted(false);
         tP.setFocusPainted(false);
+        exit.setFocusPainted(false);
 
         sP.addActionListener(this);
         tP.addActionListener(this);
+        exit.addActionListener(this);
 
-        add(sP);
-        add(tP);
+        add(leftPanel);
+        add(rightPanel);
+        leftPanel.add(sP);
+        rightPanel.add(tP);
+        rightPanel.add(exit);
 
 
         getContentPane().setBackground(Color.BLACK);
@@ -55,7 +78,7 @@ public class Main_Menu extends JFrame implements ActionListener {
             setVisible(false);
             dispose();
 
-            //
+            new Login(0);
 
         }
 
@@ -64,9 +87,16 @@ public class Main_Menu extends JFrame implements ActionListener {
             setVisible(false);
             dispose();
 
-            //
+            new Login(1);
 
         }
+
+        else{
+
+            System.exit(0);
+
+        }
+
     }
 
     public static void main(String[] args){
