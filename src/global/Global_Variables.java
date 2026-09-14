@@ -1,6 +1,6 @@
 package global;
 
-import java.awt.Font;
+import java.awt.*;
 
 public class Global_Variables {
 
@@ -15,13 +15,12 @@ public class Global_Variables {
 
     public static final String WELCOME_ICON = ICON_FOLDER + "Welcome.png";
 
-
     public static final int WINDOW_WIDTH = 1024;
     public static final int WINDOW_HEIGHT = 768;
     public static final int X_POSITION = 448;
     public static final int Y_POSITION = 156;
     public static final int SPLASH_TIME = 2000;
 
-    public static final Font btnFont = new Font("Arial",Font.BOLD,20);
+    public static final Font btnFont = new Font("Arial", Font.BOLD, 20);
 
 }

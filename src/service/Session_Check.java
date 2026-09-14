@@ -7,15 +7,15 @@ import ui.*;
 
 public class Session_Check {
 
-    public Session_Check(){
+    public Session_Check() {
 
-        try{
+        try {
 
             BufferedReader br = new BufferedReader(new FileReader(Global_Variables.CURRENT_SESSION));
 
             String line = br.readLine();
 
-            if(line==null){
+            if (line == null) {
 
                 new Main_Menu();
 
@@ -35,7 +35,7 @@ public class Session_Check {
 
             br.close();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             return;
         }
 

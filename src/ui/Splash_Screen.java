@@ -1,31 +1,20 @@
 package ui;
 
-import java.awt.Color;
-
+import java.awt.*;
 import javax.swing.*;
-
 import global.*;
-import service.Session_Check;
+import service.*;
 
 public class Splash_Screen extends JFrame {
 
-    public Splash_Screen(){
+    public Splash_Screen() {
 
-        ImageIcon welcomeIcon = new ImageIcon(Global_Variables.WELCOME_ICON);
-        JLabel welcomeIconLabel = new JLabel(welcomeIcon);
-        welcomeIconLabel.setBounds(0, 0, Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        add(welcomeIconLabel);
+        createWallpaper();
+        createMenu();
 
-        getContentPane().setBackground(Color.BLACK);
-        setLayout(null);
-        setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        setVisible(true);setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
+        try {
 
-        try{
-
-            Timer timer = new Timer(Global_Variables.SPLASH_TIME, e->{
+            Timer timer = new Timer(Global_Variables.SPLASH_TIME, e -> {
 
                 setVisible(false);
 
@@ -38,15 +27,30 @@ public class Splash_Screen extends JFrame {
             timer.setRepeats(false);
             timer.start();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public static void main(String[] args){
-        new Splash_Screen();
+    private void createWallpaper() {
+        ImageIcon welcomeIcon = new ImageIcon(Global_Variables.WELCOME_ICON);
+        JLabel welcomeIconLabel = new JLabel(welcomeIcon);
+        welcomeIconLabel.setBounds(0, 0, Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
+        add(welcomeIconLabel);
     }
 
+    private void createMenu() {
+        getContentPane().setBackground(Color.BLACK);
+        setLayout(null);
+        setUndecorated(true);
+        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
+        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new Splash_Screen();
+    }
 
 }
