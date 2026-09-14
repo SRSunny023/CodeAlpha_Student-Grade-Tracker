@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Global_Variables {
 
-    public static final String TEACHER_PORTAL_ID = "26-1-0";
-    public static final String TEACHER_PORTAL_PASS = "26-1-0";
+    public static final String TEACHER_PORTAL_ID = "00-0-0";
+    public static final String TEACHER_PORTAL_PASS = "admin00-0-0";
 
     public static final String DATA_FOLDER = "data/";
     public static final String ICON_FOLDER = "resources/icon/";

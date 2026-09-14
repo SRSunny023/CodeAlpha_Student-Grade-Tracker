@@ -1,0 +1,30 @@
+Mickey Mouse|25-2-1|25-2-1
+Donald Duck|26-3-2|26-3-2
+Goofy|24-11-3|24-11-3
+Pluto|26-1-4|26-1-4
+Tom Cat|25-7-5|25-7-5
+Jerry Mouse|26-5-6|26-5-6
+Scabby Doo|24-9-7|24-9-7
+Shaggy Rogers|25-12-8|25-12-8
+Bugs Bunny|26-2-9|26-2-9
+Daffy Duck|25-4-10|25-4-10
+Tweeny Bird|24-6-11|24-6-11
+Sylvester Cat|26-8-12|26-8-12
+Popeye|25-10-13|25-10-13
+Garfield|26-3-14|26-3-14
+SpongeBob SquarePants|24-12-15|24-12-15
+Patrick Star|25-5-16|25-5-16
+Sideward Tentacles|26-7-17|26-7-17
+Ben Tennyson|25-9-18|25-9-18
+Kevin Levin|24-4-19|24-4-19
+Finn Marten|26-11-20|26-11-20
+Jake the Dog|25-2-21|25-2-21
+Dexter|24-8-22|24-8-22
+Johnny Bravo|26-6-23|26-6-23
+Courage|25-12-24|25-12-24
+Jimmy Neutron|24-3-25|24-3-25
+Arnold Shoran|26-10-26|26-10-26
+Phineas Flynn|25-6-27|25-6-27
+Feb Fletcher|24-11-28|24-11-28
+Puss in Boots|26-4-29|26-4-29
+Po|25-8-30|25-8-30
