@@ -59,6 +59,10 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
         else if (e.getSource() == viewAllReport) {
 
+            setVisible(false);
+            dispose();
+            new View_All_Student_Report();
+
         }
 
         else if (e.getSource() == logOut) {

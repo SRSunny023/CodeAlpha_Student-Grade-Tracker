@@ -76,7 +76,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
             int[] marks = new int[COURSE_SIZE];
             String[] grades = new String[COURSE_SIZE];
-            String[] points = new String[COURSE_SIZE];
+            Double[] points = new Double[COURSE_SIZE];
 
             for(int i=0; i<fields.length; i++){
 
@@ -93,34 +93,34 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
                     if(score>=80){
                         grades[i] = "A+";
-                        points[i] = "4.00";
+                        points[i] = 4.00;
                     } else if(score>=75){
                         grades[i] = "A";
-                        points[i] = "3.75";
+                        points[i] = 3.75;
                     } else if(score>=70){
                         grades[i] = "A-";
-                        points[i] = "3.50";
+                        points[i] = 3.50;
                     } else if(score>=65){
                         grades[i] = "B+";
-                        points[i] = "3.25";
+                        points[i] = 3.25;
                     } else if(score>=60){
                         grades[i] = "B";
-                        points[i] = "3.00";
+                        points[i] = 3.00;
                     } else if(score>=55){
                         grades[i] = "B-";
-                        points[i] = "2.75";
+                        points[i] = 2.75;
                     } else if(score>=50){
                         grades[i] = "C+";
-                        points[i] = "2.50";
+                        points[i] = 2.50;
                     } else if(score>=45){
                         grades[i] = "C";
-                        points[i] = "2.25";
+                        points[i] = 2.25;
                     } else if(score>=40){
                         grades[i] = "D";
-                        points[i] = "2.00";
+                        points[i] = 2.00;
                     } else{
                         grades[i] = "F";
-                        points[i] = "0.00";
+                        points[i] = 0.00;
                     }
 
 
@@ -131,28 +131,45 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
             }
 
-            File file = new File(Global_Variables.GRADES_FOLDER + id + ".txt");
+            int totalMarks = 0;
+            Double totalPoints = 0.0;
+            for(int i=0; i<COURSE_SIZE; i++){
+                totalMarks+=marks[i];
+                totalPoints+=points[i];
+            }
+            double rawCgpa = totalPoints / (double) COURSE_SIZE;
+            double cgpa = Math.round(rawCgpa * 100.0) / 100.0;
+
+            File file1 = new File(Global_Variables.MARKSHEET_FOLDER + id + ".txt");
+            File file2 = new File(Global_Variables.GRADES_FOLDER + id + ".txt");
 
             try{
 
-                if(!file.exists()){
-                    file.createNewFile();
+                if(!file1.exists()){
+                    file1.createNewFile();
                 }
 
-                FileWriter fw = new FileWriter(file);
+                if(!file2.exists()){
+                    file2.createNewFile();
+                }
+
+                FileWriter fw = new FileWriter(file1);
+                FileWriter fw1 = new FileWriter(file2);
 
                 for(int i=0; i<COURSE_SIZE; i++){
                     String line = labels[i].getText() + "|" + marks[i] + "|" + grades[i] + "|" + points[i] + "\n";
                     fw.write(line);
                 }
+                fw1.write(totalMarks + "|" + cgpa + "\n");
 
                 fw.close();
+                fw1.close();
 
                 JOptionPane.showMessageDialog(this, "Grades Successfully Updated", "Success", JOptionPane.PLAIN_MESSAGE);
 
                 setVisible(false);
                 dispose();
-                new Show_All_Student("showAllStudent");
+                new Show_All_Student("enterGrades");
 
 
             } catch(Exception ex){
@@ -166,7 +183,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
             setVisible(false);
             dispose();
-            new Show_All_Student("showAllStudent");
+            new Show_All_Student("enterGrades");
 
         }
 
@@ -174,7 +191,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
     private void loadMarks(String[] marks){
 
-        File file = new File(Global_Variables.GRADES_FOLDER + id + ".txt");
+        File file = new File(Global_Variables.MARKSHEET_FOLDER + id + ".txt");
 
         try{
 
