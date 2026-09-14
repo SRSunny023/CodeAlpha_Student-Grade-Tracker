@@ -27,8 +27,9 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
         if (e.getSource() == addStudent) {
 
-            showButtonsVisible(false);
-            new Add_Student(this);
+            setVisible(false);
+            dispose();
+            new Add_Student();
 
         }
 
@@ -38,15 +39,17 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
         else if (e.getSource() == showAllStudent) {
 
-            showButtonsVisible(false);
-            new Show_All_Student(this,"showAllStudent");
+            setVisible(false);
+            dispose();
+            new Show_All_Student("showAllStudent");
 
         }
 
         else if (e.getSource() == enterGrades) {
 
-            showButtonsVisible(false);
-            new Show_All_Student(this,"enterGrades");
+            setVisible(false);
+            dispose();
+            new Show_All_Student("enterGrades");
 
         }
 

@@ -19,15 +19,15 @@ public class Show_All_Student extends JFrame implements ActionListener {
     DefaultTableModel model;
     JLabel title;
     JButton edit, back, exit;
-
-    Teacher_Portal teacherPortal;
+    JPanel leftPanel,rightPanel;
     String type;
 
-    public Show_All_Student(Teacher_Portal teacherPortal, String type) {
+    public Show_All_Student(String type) {
 
-        this.teacherPortal = teacherPortal;
         this.type = type;
 
+        createLeftPanel();
+        createRightPanel();
         createMenu();
         createLabels(type);
         createButtons(type);
@@ -61,8 +61,9 @@ public class Show_All_Student extends JFrame implements ActionListener {
 
                 } else{
 
-                    setEnabled(false);
-                    new Enter_Grades(name, id, this);
+                    setVisible(false);
+                    dispose();
+                    new Enter_Grades(name, id);
 
                 }
 
@@ -80,7 +81,7 @@ public class Show_All_Student extends JFrame implements ActionListener {
 
             setVisible(false);
             dispose();
-            teacherPortal.showButtonsVisible(true);
+            new Teacher_Portal();
 
         }
 
@@ -166,7 +167,7 @@ public class Show_All_Student extends JFrame implements ActionListener {
         scrollPane.setBounds(40, 90, 430, 400);
         scrollPane.getViewport().setBackground(Color.BLACK);
         scrollPane.getViewport().setForeground(Color.WHITE);
-        add(scrollPane);
+        rightPanel.add(scrollPane);
     }
 
     private void createButtons(String type) {
@@ -182,7 +183,7 @@ public class Show_All_Student extends JFrame implements ActionListener {
         edit.setBounds(270, 520, 200, 50);
         edit.setFocusPainted(false);
         edit.addActionListener(this);
-        add(edit);
+        rightPanel.add(edit);
 
         back = new JButton("Back");
         back.setFont(new Font("Arial", Font.BOLD, 26));
@@ -191,7 +192,7 @@ public class Show_All_Student extends JFrame implements ActionListener {
         back.setBounds(40, 520, 200, 50);
         back.setFocusPainted(false);
         back.addActionListener(this);
-        add(back);
+        rightPanel.add(back);
 
         exit = new JButton("Exit");
         exit.setFont(new Font("Arial", Font.BOLD, 26));
@@ -200,7 +201,7 @@ public class Show_All_Student extends JFrame implements ActionListener {
         exit.setBounds(0, 718, 512, 50);
         exit.setFocusPainted(false);
         exit.addActionListener(this);
-        add(exit);
+        rightPanel.add(exit);
     }
 
     private void createLabels(String type) {
@@ -214,15 +215,34 @@ public class Show_All_Student extends JFrame implements ActionListener {
         title.setBounds(170, 20, 250, 40);
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
-        add(title);
+        rightPanel.add(title);
+    }
+
+    private void createRightPanel() {
+        rightPanel = new JPanel();
+        rightPanel.setLayout(null);
+        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
+        rightPanel.setForeground(Color.WHITE);
+        rightPanel.setBackground(Color.BLACK);
+        add(rightPanel);
+    }
+
+    private void createLeftPanel() {
+        leftPanel = new JPanel();
+        leftPanel.setLayout(null);
+        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
+        leftPanel.setForeground(Color.BLACK);
+        leftPanel.setBackground(Color.WHITE);
+        add(leftPanel);
     }
 
     private void createMenu() {
+
         getContentPane().setBackground(Color.BLACK);
         setLayout(null);
         setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION + 513, Global_Variables.Y_POSITION);
-        setSize(512, Global_Variables.WINDOW_HEIGHT);
+        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
+        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
         setVisible(true);
     }
 

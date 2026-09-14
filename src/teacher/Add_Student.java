@@ -14,15 +14,14 @@ public class Add_Student extends JFrame implements ActionListener {
     JLabel nameLabel, idLabel;
     JTextField nameField, idField;
     JButton addStudent, back, exit;
+    JPanel leftPanel,rightPanel;
 
     String idPrefix = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-M-"));
 
-    Teacher_Portal teacherPortal;
+    public Add_Student() {
 
-    public Add_Student(Teacher_Portal teacherPortal) {
-
-        this.teacherPortal = teacherPortal;
-
+        createLeftPanel();
+        createRightPanel();
         createLabels();
         createFields();
         createButtons();
@@ -75,7 +74,7 @@ public class Add_Student extends JFrame implements ActionListener {
 
             setVisible(false);
             dispose();
-            teacherPortal.showButtonsVisible(true);
+            new Teacher_Portal();
 
         } else {
 
@@ -111,7 +110,7 @@ public class Add_Student extends JFrame implements ActionListener {
         addStudent.setBounds(50, 344, 200, 50);
         addStudent.setFocusPainted(false);
         addStudent.addActionListener(this);
-        add(addStudent);
+        rightPanel.add(addStudent);
 
         back = new JButton("Back");
         back.setFont(new Font("Arial", Font.BOLD, 26));
@@ -120,7 +119,7 @@ public class Add_Student extends JFrame implements ActionListener {
         back.setBounds(260, 344, 200, 50);
         back.setFocusPainted(false);
         back.addActionListener(this);
-        add(back);
+        rightPanel.add(back);
 
         exit = new JButton("Exit");
         exit.setFont(new Font("Arial", Font.BOLD, 26));
@@ -129,7 +128,7 @@ public class Add_Student extends JFrame implements ActionListener {
         exit.setBounds(0, 718, 512, 50);
         exit.setFocusPainted(false);
         exit.addActionListener(this);
-        add(exit);
+        rightPanel.add(exit);
     }
 
     private void createFields() {
@@ -137,13 +136,13 @@ public class Add_Student extends JFrame implements ActionListener {
         nameField.setFont(new Font("Arial", Font.BOLD, 26));
         nameField.setBounds(260, 224, 200, 50);
         nameField.setForeground(Color.BLACK);
-        add(nameField);
+        rightPanel.add(nameField);
 
         idField = new JTextField(idPrefix);
         idField.setFont(new Font("Arial", Font.BOLD, 26));
         idField.setBounds(260, 284, 200, 50);
         idField.setForeground(Color.BLACK);
-        add(idField);
+        rightPanel.add(idField);
     }
 
     private void createLabels() {
@@ -151,21 +150,40 @@ public class Add_Student extends JFrame implements ActionListener {
         nameLabel.setFont(new Font("Arial", Font.BOLD, 26));
         nameLabel.setBounds(50, 224, 200, 50);
         nameLabel.setForeground(Color.WHITE);
-        add(nameLabel);
+        rightPanel.add(nameLabel);
 
         idLabel = new JLabel("Enter ID:");
         idLabel.setFont(new Font("Arial", Font.BOLD, 26));
         idLabel.setBounds(50, 284, 200, 50);
         idLabel.setForeground(Color.WHITE);
-        add(idLabel);
+        rightPanel.add(idLabel);
+    }
+
+    private void createRightPanel() {
+        rightPanel = new JPanel();
+        rightPanel.setLayout(null);
+        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
+        rightPanel.setForeground(Color.WHITE);
+        rightPanel.setBackground(Color.BLACK);
+        add(rightPanel);
+    }
+
+    private void createLeftPanel() {
+        leftPanel = new JPanel();
+        leftPanel.setLayout(null);
+        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
+        leftPanel.setForeground(Color.BLACK);
+        leftPanel.setBackground(Color.WHITE);
+        add(leftPanel);
     }
 
     private void createMenu() {
+
         getContentPane().setBackground(Color.BLACK);
         setLayout(null);
         setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION + 513, Global_Variables.Y_POSITION);
-        setSize(512, Global_Variables.WINDOW_HEIGHT);
+        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
+        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
         setVisible(true);
     }
 

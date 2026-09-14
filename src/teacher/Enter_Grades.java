@@ -11,7 +11,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
     public static final int COURSE_SIZE = 10;
     String name,id;
-    Show_All_Student show_All_Student;
+    JPanel leftPanel,rightPanel;
     JLabel[] labels = new JLabel[]{
         new JLabel("C Programming"),
         new JLabel("Data Structure"),
@@ -48,12 +48,13 @@ public class Enter_Grades extends JFrame implements ActionListener {
         new JLabel()
     };
 
-    public Enter_Grades(String name, String id, Show_All_Student show_All_Student){
+    public Enter_Grades(String name, String id){
 
         this.name = name;
         this.id = id;
-        this.show_All_Student = show_All_Student;
 
+        createRightPanel();
+        createLeftPanel();
         createStudentDetails();
         createLabels();
         createFields();
@@ -151,7 +152,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
                 setVisible(false);
                 dispose();
-                show_All_Student.setEnabled(true);
+                new Show_All_Student("showAllStudent");
 
 
             } catch(Exception ex){
@@ -165,7 +166,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
             setVisible(false);
             dispose();
-            show_All_Student.setEnabled(true);
+            new Show_All_Student("showAllStudent");
 
         }
 
@@ -228,7 +229,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
                 studentDetails[i].setBounds(210,0+(30*(i-1)),300,30);
             }
 
-            add(studentDetails[i]);
+            leftPanel.add(studentDetails[i]);
         }
 
     }
@@ -239,7 +240,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
             labels[i].setFont(new Font("Arial",Font.BOLD,16));
             labels[i].setForeground(Color.BLACK);
             labels[i].setBounds(40,130+(40*(i+1)),250,30);
-            add(labels[i]);
+            leftPanel.add(labels[i]);
         }
 
     }
@@ -255,7 +256,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
             fields[i].setForeground(Color.WHITE);
             fields[i].setBackground(Color.BLACK);
             fields[i].setBounds(290,130+(40*(i+1)),150,30);
-            add(fields[i]);
+            leftPanel.add(fields[i]);
         }
 
     }
@@ -269,18 +270,36 @@ public class Enter_Grades extends JFrame implements ActionListener {
             buttons[i].setFocusPainted(false);
             buttons[i].setBounds(0+(120*i+80),738,120,30);
             buttons[i].addActionListener(this);
-            add(buttons[i]);
+            leftPanel.add(buttons[i]);
         }
 
     }
 
-    private void createMenu(){
-        getContentPane().setBackground(Color.WHITE);
-        getContentPane().setForeground(Color.BLACK);
+    private void createRightPanel() {
+        rightPanel = new JPanel();
+        rightPanel.setLayout(null);
+        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
+        rightPanel.setForeground(Color.WHITE);
+        rightPanel.setBackground(Color.BLACK);
+        add(rightPanel);
+    }
+
+    private void createLeftPanel() {
+        leftPanel = new JPanel();
+        leftPanel.setLayout(null);
+        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
+        leftPanel.setForeground(Color.BLACK);
+        leftPanel.setBackground(Color.WHITE);
+        add(leftPanel);
+    }
+
+    private void createMenu() {
+
+        getContentPane().setBackground(Color.BLACK);
         setLayout(null);
         setUndecorated(true);
         setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(512, Global_Variables.WINDOW_HEIGHT);
+        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
         setVisible(true);
     }
 
