@@ -96,7 +96,7 @@ public class View_Specific_Student_Report extends JFrame implements ActionListen
             }
 
             new Global_Functions().clearScreen(this);
-            new View_Student_Report(name, id, "Teacher Portal");
+            new View_Student_Report(name, id, "Teacher Portal", "Full Result");
 
         }
 

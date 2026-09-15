@@ -28,4 +28,5 @@ Phineas Flynn|25-6-27|25-6-27
 Feb Fletcher|24-11-28|24-11-28
 Puss in Boots|26-4-29|26-4-29
 Po|25-8-30|25-8-30
-Napusa|26-9-9|26-9-99
+Napusa|26-9-9|26-9-9
+Sojo|26-9-1|sojosojo

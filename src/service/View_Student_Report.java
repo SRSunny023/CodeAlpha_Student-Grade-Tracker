@@ -10,7 +10,7 @@ import model.*;
 
 public class View_Student_Report extends JFrame implements ActionListener {
 
-    String name,id,type;
+    String name,id,portalType,type;
 
     JLabel[] titles = new JLabel[]{
         new JLabel("Name:"),
@@ -42,16 +42,20 @@ public class View_Student_Report extends JFrame implements ActionListener {
     JScrollPane scrollPane;
     DefaultTableModel model;
 
-    public View_Student_Report(String name, String id, String type){
+    public View_Student_Report(String name, String id, String portalType, String type){
 
         this.name = name;
         this.id = id;
+        this.portalType = portalType;
         this.type = type;
 
         createMenu();
         loadCGPA_Marks();
-        createTable();
-        loadMarksheet();
+
+        if(type.equals("Full Result")){
+            createTable();
+            loadMarksheet();
+        }
 
     }
 
@@ -62,7 +66,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
 
             new Global_Functions().clearScreen(this);
 
-            if(type.equals("Student Portal")){
+            if(portalType.equals("Student Portal")){
                 new Student_Portal(name,id);
             } else{
                 new Teacher_Portal();
@@ -184,7 +188,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
         scrollPane.getViewport().setBackground(Color.WHITE);
         scrollPane.getViewport().setForeground(Color.BLACK);
 
-        if(type.equals("Student Portal")){
+        if(portalType.equals("Student Portal")){
             panels[1].add(scrollPane);
         } else{
             panels[0].add(scrollPane);
@@ -192,7 +196,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
 
     }
 
-    private void createTitles(String type){
+    private void createTitles(){
 
         for(int i=0; i<titles.length; i++){
 
@@ -211,7 +215,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
                 titles[i].setText(id);
             }
 
-            if(type.equals("Student Portal")){
+            if(portalType.equals("Student Portal")){
                 panels[1].add(titles[i]);
             } else{
                 panels[0].add(titles[i]);
@@ -229,13 +233,13 @@ public class View_Student_Report extends JFrame implements ActionListener {
             labels[i].setForeground(Color.BLACK);
 
             if(i<3){
-                labels[i].setBounds(40, 620 + (30*i), 250, 30);
+                labels[i].setBounds(40, (type.equals("Full Result")) ? 620 + (30*i) : 200 + (30*i), 250, 30);
             } else{
-                labels[i].setBounds(200, 620 + (30*(i-3)), 250, 30);
+                labels[i].setBounds(200, (type.equals("Full Result")) ? 620 + (30*(i-3)) : 200 + (30*(i-3)), 250, 30);
                 labels[i].setText("Result Not Published Yet");
             }
 
-            if(type.equals("Student Portal")){
+            if(portalType.equals("Student Portal")){
                 panels[1].add(labels[i]);
             } else{
                 panels[0].add(labels[i]);
@@ -256,7 +260,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
             buttons[i].addActionListener(this);
             buttons[i].setBounds(0+(360*i),738, 150, 30);
 
-            if(type.equals("Student Portal")){
+            if(portalType.equals("Student Portal")){
                 panels[1].add(buttons[i]);
             } else{
                 panels[0].add(buttons[i]);
@@ -268,8 +272,8 @@ public class View_Student_Report extends JFrame implements ActionListener {
 
     private void createMenu(){
 
-        new Global_Functions().createPanels(this, panels, type);
-        createTitles(type);
+        new Global_Functions().createPanels(this, panels, portalType);
+        createTitles();
         createLabels();
         createButtons();
         new Global_Functions().createMainFrame(this);
@@ -278,7 +282,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
 
     public static void main(String[] args){
 
-        new View_Student_Report("Napusa", "26-9-10", "Student Portal");
+        new View_Student_Report("Napusa", "26-9-10", "Student Portal", "Full Result");
 
     }
 

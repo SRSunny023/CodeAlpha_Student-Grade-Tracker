@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
+
+import auth.Update_Password;
 import global.*;
 import service.View_Student_Report;
 import ui.*;
@@ -39,16 +41,22 @@ public class Student_Portal extends JFrame implements ActionListener {
 
         if (e.getSource() == buttons[0]) {
 
+            new Global_Functions().clearScreen(this);
+            new View_Student_Report(studentName, studentID, "Student Portal", "Short Result");
+
         }
 
         else if (e.getSource() == buttons[1]) {
 
             new Global_Functions().clearScreen(this);
-            new View_Student_Report(studentName, studentID, "Student Portal");
+            new View_Student_Report(studentName, studentID, "Student Portal", "Full Result");
 
         }
 
         else if (e.getSource() == buttons[2]) {
+
+            new Global_Functions().clearScreen(this);
+            new Update_Password(studentName, studentID);
 
         }
 
