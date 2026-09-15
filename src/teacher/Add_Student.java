@@ -169,7 +169,7 @@ public class Add_Student extends JFrame implements ActionListener {
 
     private void createMenu() {
 
-        new Global_Functions().createPanels(this,panels);
+        new Global_Functions().createPanels(this,panels, "Teacher Portal");
         createLabels();
         createFields();
         createButtons();

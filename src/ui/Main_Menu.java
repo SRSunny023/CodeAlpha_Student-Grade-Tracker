@@ -30,14 +30,14 @@ public class Main_Menu extends JFrame implements ActionListener {
         if (e.getSource() == buttons[0]) {
 
             new Global_Functions().clearScreen(this);
-            new Login(0);
+            new Login("Student Portal");
 
         }
 
         else if (e.getSource() == buttons[1]) {
 
             new Global_Functions().clearScreen(this);
-            new Login(1);
+            new Login("Teacher Portal");
 
         }
 
@@ -85,7 +85,7 @@ public class Main_Menu extends JFrame implements ActionListener {
 
     private void createMenu() {
 
-        new Global_Functions().createPanels(this,panels);
+        new Global_Functions().createPanels(this,panels,"Teacher Portal");
         createButtons();
         new Global_Functions().createMainFrame(this);
 

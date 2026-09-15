@@ -23,7 +23,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
             new JLabel("Artificial Intelligence"),
             new JLabel("Machine Learning"),
             new JLabel("Software Engineering"),
-            new JLabel("Object Oriented Programming"),
+            new JLabel("OOP"),
             new JLabel("Algorithms"),
             new JLabel("Computer Fundamentals")
     };
@@ -291,7 +291,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
     private void createMenu() {
 
-        new Global_Functions().createPanels(this,panels);
+        new Global_Functions().createPanels(this,panels, "Teacher Portal");
         createStudentDetails();
         createLabels();
         createFields();

@@ -62,6 +62,9 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
         else if (e.getSource() == buttons[4]) {
 
+            new Global_Functions().clearScreen(this);
+            new View_Specific_Student_Report();
+
         }
 
         else if (e.getSource() == buttons[5]) {
@@ -114,7 +117,7 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
     private void createMenu() {
 
-        new Global_Functions().createPanels(this,panels);
+        new Global_Functions().createPanels(this,panels, "Teacher Portal");
         createButtons();
         new Global_Functions().createMainFrame(this);
 

@@ -29,7 +29,7 @@ public class Session_Check {
 
             } else {
 
-                new Student_Portal(id);
+                new Student_Portal(parts[0],id);
 
             }
 

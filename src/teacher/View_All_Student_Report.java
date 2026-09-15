@@ -109,7 +109,7 @@ public class View_All_Student_Report extends JFrame implements ActionListener {
 
     private void createMenu() {
 
-        new Global_Functions().createPanels(this,panels);
+        new Global_Functions().createPanels(this,panels, "Teacher Portal");
         createTitle();
         createLabels();
         createButtons();

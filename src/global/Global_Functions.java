@@ -22,18 +22,18 @@ public class Global_Functions {
         parentFrame.dispose();
     }
 
-    public void createPanels(JFrame parentFrame, JPanel[] panels){
+    public void createPanels(JFrame parentFrame, JPanel[] panels, String type){
 
         for (int i = 0; i < 2; i++) {
             panels[i].setLayout(null);
             if (i == 0) {
                 panels[i].setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
-                panels[i].setForeground(Color.BLACK);
-                panels[i].setBackground(Color.WHITE);
+                panels[i].setForeground((type.equals("Student Portal")) ? Color.WHITE : Color.BLACK);
+                panels[i].setBackground((type.equals("Student Portal")) ? Color.BLACK : Color.WHITE);
             } else {
                 panels[i].setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
-                panels[i].setForeground(Color.WHITE);
-                panels[i].setBackground(Color.BLACK);
+                panels[i].setForeground((type.equals("Student Portal")) ? Color.BLACK : Color.WHITE);
+                panels[i].setBackground((type.equals("Student Portal")) ? Color.WHITE : Color.BLACK);
             }
             parentFrame.add(panels[i]);
         }

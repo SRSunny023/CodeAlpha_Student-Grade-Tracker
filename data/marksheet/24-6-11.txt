@@ -5,6 +5,6 @@ Digital Logic Design|19|F|0.0
 Artificial Intelligence|42|D|2.0
 Machine Learning|75|A|3.75
 Software Engineering|89|A+|4.0
-Object Oriented Programming|79|A|3.75
+OOP|79|A|3.75
 Algorithms|85|A+|4.0
 Computer Fundamentals|86|A+|4.0

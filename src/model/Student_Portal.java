@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import global.*;
+import service.View_Student_Report;
 import ui.*;
 
 public class Student_Portal extends JFrame implements ActionListener {
@@ -16,18 +17,19 @@ public class Student_Portal extends JFrame implements ActionListener {
 
     JButton[] buttons = new JButton[]{
         new JButton("View Result"),
-        new JButton("View Grades (Subject Wise)"),
-        new JButton("View Marks (Subject Wise)"),
+        new JButton("View Full Result"),
         new JButton("Update Password"),
         new JButton("Log Out"),
         new JButton("Exit")
     };
 
     private String studentID;
+    private String studentName;
 
-    public Student_Portal(String studentID) {
+    public Student_Portal(String studentName, String studentID) {
 
         this.studentID = studentID;
+        this.studentName = studentName;
         createMenu();
 
     }
@@ -41,6 +43,9 @@ public class Student_Portal extends JFrame implements ActionListener {
 
         else if (e.getSource() == buttons[1]) {
 
+            new Global_Functions().clearScreen(this);
+            new View_Student_Report(studentName, studentID, "Student Portal");
+
         }
 
         else if (e.getSource() == buttons[2]) {
@@ -48,10 +53,6 @@ public class Student_Portal extends JFrame implements ActionListener {
         }
 
         else if (e.getSource() == buttons[3]) {
-
-        }
-
-        else if (e.getSource() == buttons[4]) {
 
             try {
 
@@ -93,12 +94,12 @@ public class Student_Portal extends JFrame implements ActionListener {
     }
 
     private void createMenu() {
-        new Global_Functions().createPanels(this,panels);
+        new Global_Functions().createPanels(this,panels,"Student Portal");
         createButtons();
         new Global_Functions().createMainFrame(this);
     }
 
     public static void main(String[] args) {
-        new Student_Portal("");
+        new Student_Portal("","");
     }
 }
