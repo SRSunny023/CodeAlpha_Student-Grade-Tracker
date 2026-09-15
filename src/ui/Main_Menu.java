@@ -8,14 +8,18 @@ import global.*;
 
 public class Main_Menu extends JFrame implements ActionListener {
 
-    JButton sP, tP, exit;
-    JPanel leftPanel, rightPanel;
+    JButton[] buttons = new JButton[] {
+            new JButton("Student Portal"),
+            new JButton("Teacher Portal"),
+            new JButton("Exit")
+    };
+    JPanel[] panels = new JPanel[] {
+            new JPanel(),
+            new JPanel()
+    };
 
     public Main_Menu() {
 
-        createRightPanel();
-        createLeftPanel();
-        createButtons();
         createMenu();
 
     }
@@ -23,91 +27,68 @@ public class Main_Menu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == sP) {
+        if (e.getSource() == buttons[0]) {
 
-            setVisible(false);
-            dispose();
-
+            new Global_Functions().clearScreen(this);
             new Login(0);
 
         }
 
-        else if (e.getSource() == tP) {
+        else if (e.getSource() == buttons[1]) {
 
-            setVisible(false);
-            dispose();
-
+            new Global_Functions().clearScreen(this);
             new Login(1);
 
         }
 
         else {
 
-            System.exit(0);
+            new Global_Functions().exitApp(this);
 
         }
 
     }
 
     private void createButtons() {
-        sP = new JButton("Student Portal");
-        tP = new JButton("Teacher Portal");
-        exit = new JButton("Exit");
 
-        sP.setBounds(156, 369, 200, 30);
-        tP.setBounds(156, 369, 200, 30);
-        exit.setBounds(312, 738, 200, 30);
+        for (int i = 0; i < buttons.length; i++) {
 
-        sP.setForeground(Color.BLACK);
-        tP.setForeground(Color.WHITE);
-        exit.setForeground(Color.BLACK);
+            if (buttons[i].getText().equals("Teacher Portal")) {
+                buttons[i].setForeground(Color.BLACK);
+                buttons[i].setBackground(Color.WHITE);
+            } else if (buttons[i].getText().equals("Student Portal")) {
+                buttons[i].setForeground(Color.WHITE);
+                buttons[i].setBackground(Color.BLACK);
+            } else {
+                buttons[i].setForeground(Color.BLACK);
+                buttons[i].setBackground(Color.ORANGE);
+            }
 
-        sP.setBackground(Color.WHITE);
-        tP.setBackground(Color.BLACK);
-        exit.setBackground(Color.ORANGE);
+            buttons[i].setFont(Global_Variables.btnFont);
+            buttons[i].setFocusPainted(false);
+            buttons[i].addActionListener(this);
 
-        sP.setFont(Global_Variables.btnFont);
-        tP.setFont(Global_Variables.btnFont);
-        exit.setFont(Global_Variables.btnFont);
+            if (buttons[i].getText().equals("Exit")) {
+                buttons[i].setBounds(312, 738, 200, 30);
+            } else {
+                buttons[i].setBounds(156, 369, 200, 30);
+            }
 
-        sP.setFocusPainted(false);
-        tP.setFocusPainted(false);
-        exit.setFocusPainted(false);
+            if (buttons[i].getText().equals("Student Portal")) {
+                panels[0].add(buttons[i]);
+            } else {
+                panels[1].add(buttons[i]);
+            }
 
-        sP.addActionListener(this);
-        tP.addActionListener(this);
-        exit.addActionListener(this);
-
-        leftPanel.add(sP);
-        rightPanel.add(tP);
-        rightPanel.add(exit);
-    }
-
-    private void createRightPanel() {
-        rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        rightPanel.setForeground(Color.WHITE);
-        rightPanel.setBackground(Color.WHITE);
-        add(rightPanel);
-    }
-
-    private void createLeftPanel() {
-        leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        leftPanel.setForeground(Color.WHITE);
-        leftPanel.setBackground(Color.BLACK);
-        add(leftPanel);
+        }
     }
 
     private void createMenu() {
-        getContentPane().setBackground(Color.BLACK);
-        setLayout(null);
-        setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        setVisible(true);
+
+        new Global_Functions().createPanels(this,panels);
+        createButtons();
+        new Global_Functions().createMainFrame(this);
+
     }
 
     public static void main(String[] args) {

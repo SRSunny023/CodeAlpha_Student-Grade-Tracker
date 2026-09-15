@@ -4,10 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-
 import javax.swing.*;
 import javax.swing.table.*;
-
 import global.*;
 import model.*;
 import service.*;
@@ -18,55 +16,53 @@ public class Show_All_Student extends JFrame implements ActionListener {
     JScrollPane scrollPane;
     DefaultTableModel model;
     JLabel title;
-    JButton edit, back, exit;
-    JPanel leftPanel,rightPanel;
     String type;
+    JButton[] buttons = new JButton[] {
+            new JButton(),
+            new JButton("Back"),
+            new JButton("Exit")
+    };
+    JPanel[] panels = new JPanel[] {
+            new JPanel(),
+            new JPanel()
+    };
 
     public Show_All_Student(String type) {
 
         this.type = type;
-
-        createLeftPanel();
-        createRightPanel();
         createMenu();
-        createLabels(type);
-        createButtons(type);
-        createTable();
-        loadStudents();
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == edit) {
+        if (e.getSource() == buttons[0]) {
 
             try {
 
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(this, "Please select a student!", "Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Please select a student!", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 String name = (String) model.getValueAt(selectedRow, 0);
                 String id = (String) model.getValueAt(selectedRow, 1);
 
-                if(type.equals("showAllStudent")){
+                if (type.equals("showAllStudent")) {
 
                     new Edit_Student(name, id);
 
                     model.setRowCount(0);
                     loadStudents();
 
-                } else{
+                } else {
 
-                    setVisible(false);
-                    dispose();
+                    new Global_Functions().clearScreen(this);
                     new Enter_Grades(name, id);
 
                 }
-
 
             } catch (Exception ex) {
 
@@ -77,17 +73,16 @@ public class Show_All_Student extends JFrame implements ActionListener {
 
         }
 
-        else if (e.getSource() == back) {
+        else if (e.getSource() == buttons[1]) {
 
-            setVisible(false);
-            dispose();
+            new Global_Functions().clearScreen(this);
             new Teacher_Portal();
 
         }
 
         else {
 
-            System.exit(0);
+            new Global_Functions().exitApp(this);
 
         }
 
@@ -167,83 +162,71 @@ public class Show_All_Student extends JFrame implements ActionListener {
         scrollPane.setBounds(40, 90, 430, 400);
         scrollPane.getViewport().setBackground(Color.BLACK);
         scrollPane.getViewport().setForeground(Color.WHITE);
-        rightPanel.add(scrollPane);
+        panels[1].add(scrollPane);
     }
 
     private void createButtons(String type) {
 
-        if(type.equals("enterGrades")){
-            edit = new JButton("Enter Grade");
-        } else{
-            edit = new JButton("Edit");
+        if (type.equals("enterGrades")) {
+            buttons[0].setText("Grade Entry");
+        } else {
+            buttons[0].setText("Edit");
         }
-        edit.setFont(new Font("Arial", Font.BOLD, 26));
-        edit.setForeground(Color.WHITE);
-        edit.setBackground(Color.BLACK);
-        edit.setBounds(270, 520, 200, 50);
-        edit.setFocusPainted(false);
-        edit.addActionListener(this);
-        rightPanel.add(edit);
 
-        back = new JButton("Back");
-        back.setFont(new Font("Arial", Font.BOLD, 26));
-        back.setForeground(Color.WHITE);
-        back.setBackground(Color.BLACK);
-        back.setBounds(40, 520, 200, 50);
-        back.setFocusPainted(false);
-        back.addActionListener(this);
-        rightPanel.add(back);
+        for (int i = 0; i < buttons.length; i++) {
 
-        exit = new JButton("Exit");
-        exit.setFont(new Font("Arial", Font.BOLD, 26));
-        exit.setForeground(Color.BLACK);
-        exit.setBackground(Color.ORANGE);
-        exit.setBounds(0, 718, 512, 50);
-        exit.setFocusPainted(false);
-        exit.addActionListener(this);
-        rightPanel.add(exit);
+            buttons[i].setFont(new Font("Arial", Font.BOLD, 26));
+
+            if (buttons[i].getText().equals("Exit")) {
+                buttons[i].setForeground(Color.BLACK);
+                buttons[i].setBackground(Color.ORANGE);
+            }
+
+            else {
+                buttons[i].setForeground(Color.WHITE);
+                buttons[i].setBackground(Color.BLACK);
+            }
+
+            buttons[i].setFocusPainted(false);
+            buttons[i].addActionListener(this);
+
+            if (buttons[i].getText().equals("Back")) {
+                buttons[i].setBounds(40, 520, 200, 50);
+            } else if (buttons[i].getText().equals("Exit")) {
+                buttons[i].setBounds(0, 718, 512, 50);
+            } else {
+                buttons[i].setBounds(270, 520, 200, 50);
+            }
+
+            panels[1].add(buttons[i]);
+
+        }
+
     }
 
     private void createLabels(String type) {
 
-        if(type.equals("enterGrades")){
+        if (type.equals("enterGrades")) {
             title = new JLabel("Grades Entry");
-        } else{
+        } else {
             title = new JLabel("All Students");
         }
 
         title.setBounds(170, 20, 250, 40);
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
-        rightPanel.add(title);
-    }
-
-    private void createRightPanel() {
-        rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        rightPanel.setForeground(Color.WHITE);
-        rightPanel.setBackground(Color.BLACK);
-        add(rightPanel);
-    }
-
-    private void createLeftPanel() {
-        leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        leftPanel.setForeground(Color.BLACK);
-        leftPanel.setBackground(Color.WHITE);
-        add(leftPanel);
+        panels[1].add(title);
     }
 
     private void createMenu() {
 
-        getContentPane().setBackground(Color.BLACK);
-        setLayout(null);
-        setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        setVisible(true);
+        new Global_Functions().createPanels(this,panels);
+        createLabels(type);
+        createButtons(type);
+        createTable();
+        loadStudents();
+        new Global_Functions().createMainFrame(this);
+
     }
 
 }

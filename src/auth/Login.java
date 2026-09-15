@@ -10,23 +10,30 @@ import ui.*;
 
 public class Login extends JFrame implements ActionListener {
 
-    JPanel leftPanel, rightPanel;
-    JLabel idLabel, passLabel;
+    JPanel[] panels = new JPanel[]{
+        new JPanel(),
+        new JPanel()
+    };
+
+    JLabel[] labels = new JLabel[]{
+        new JLabel("Enter ID:"),
+        new JLabel("Enter Password:")
+    };
+
+    JButton[] buttons = new JButton[]{
+        new JButton("Login"),
+        new JButton("Back"),
+        new JButton("Exit")
+    };
+
     JPasswordField passField;
     JTextField idField;
-    JButton login, back, exit;
 
     private int portalType;
 
     public Login(int portalType) {
 
         this.portalType = portalType;
-
-        createLeftPanel();
-        createRightPanel();
-        createLabels();
-        createFields();
-        createButtons();
         createMenu();
 
     }
@@ -34,7 +41,7 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == login) {
+        if (e.getSource() == buttons[0]) {
 
             String id = idField.getText();
             String pass = new String(passField.getPassword());
@@ -52,9 +59,7 @@ public class Login extends JFrame implements ActionListener {
                     ex.printStackTrace();
                 }
 
-                setVisible(false);
-                dispose();
-
+                new Global_Functions().clearScreen(this);
                 new Teacher_Portal();
 
             }
@@ -78,9 +83,7 @@ public class Login extends JFrame implements ActionListener {
                             fw.write(line1);
                             fw.close();
 
-                            setVisible(false);
-                            dispose();
-
+                            new Global_Functions().clearScreen(this);
                             new Student_Portal(id);
 
                             break;
@@ -106,112 +109,70 @@ public class Login extends JFrame implements ActionListener {
 
         }
 
-        else if (e.getSource() == back) {
+        else if (e.getSource() == buttons[1]) {
 
-            setVisible(false);
-            dispose();
-
+            new Global_Functions().clearScreen(this);
             new Main_Menu();
 
         }
 
         else {
 
-            System.exit(0);
+            new Global_Functions().exitApp(this);
 
         }
 
     }
 
     private void createButtons() {
-        login = new JButton("Login");
-        back = new JButton("Back");
-        exit = new JButton("Exit");
 
-        login.setFont(new Font("Arial", Font.BOLD, 16));
-        back.setFont(new Font("Arial", Font.BOLD, 16));
-        exit.setFont(new Font("Arial", Font.BOLD, 16));
+        for(int i=0; i<buttons.length; i++){
 
-        login.setForeground(Color.WHITE);
-        back.setForeground(Color.WHITE);
-        exit.setForeground(Color.WHITE);
+            buttons[i].setFont(new Font("Arial", Font.BOLD, 16));
+            buttons[i].setForeground(Color.WHITE);
+            buttons[i].setBackground(Color.BLACK);
+            buttons[i].setFocusPainted(false);
+            buttons[i].addActionListener(this);
+            buttons[i].setBounds(101 + (105*i), 239 + (100 * 2), 100, 50);
+            panels[1].add(buttons[i]);
 
-        login.setBackground(Color.BLACK);
-        back.setBackground(Color.BLACK);
-        exit.setBackground(Color.BLACK);
+        }
 
-        login.setBounds(101, 239 + (100 * 2), 100, 50);
-        back.setBounds(206, 239 + (100 * 2), 100, 50);
-        exit.setBounds(311, 239 + (100 * 2), 100, 50);
-
-        login.setFocusPainted(false);
-        back.setFocusPainted(false);
-        exit.setFocusPainted(false);
-
-        rightPanel.add(login);
-        rightPanel.add(back);
-        rightPanel.add(exit);
-
-        login.addActionListener(this);
-        back.addActionListener(this);
-        exit.addActionListener(this);
     }
 
     private void createFields() {
+
         idField = new JTextField();
         idField.setFont(new Font("Arial", Font.BOLD, 32));
         idField.setForeground(Color.WHITE);
         idField.setBackground(Color.BLACK);
         idField.setBounds(101, 239, 310, 50);
-        rightPanel.add(idField);
+        panels[1].add(idField);
 
         passField = new JPasswordField();
         passField.setFont(new Font("Arial", Font.BOLD, 32));
         passField.setForeground(Color.WHITE);
         passField.setBackground(Color.BLACK);
         passField.setBounds(101, 239 + (100 * 1), 310, 50);
-        rightPanel.add(passField);
+        panels[1].add(passField);
+
     }
 
     private void createLabels() {
-        idLabel = new JLabel("Enter ID:");
-        idLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        idLabel.setForeground(Color.WHITE);
-        idLabel.setBounds(130, 239, 300, 50);
-        leftPanel.add(idLabel);
-
-        passLabel = new JLabel("Enter Password:");
-        passLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        passLabel.setForeground(Color.WHITE);
-        passLabel.setBounds(130, 239 + (100 * 1), 300, 50);
-        leftPanel.add(passLabel);
-    }
-
-    private void createLeftPanel() {
-        leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        leftPanel.setForeground(Color.WHITE);
-        leftPanel.setBackground(Color.BLACK);
-        add(leftPanel);
-    }
-
-    private void createRightPanel() {
-        rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        rightPanel.setForeground(Color.WHITE);
-        rightPanel.setBackground(Color.WHITE);
-        add(rightPanel);
+        for(int i=0; i<labels.length; i++){
+            labels[i].setFont(new Font("Arial", Font.BOLD, 32));
+            labels[i].setForeground(Color.BLACK);
+            labels[i].setBounds(130, 239 + (100*i), 300, 50);
+            panels[0].add(labels[i]);
+        }
     }
 
     private void createMenu() {
-        getContentPane().setBackground(Color.BLACK);
-        setLayout(null);
-        setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        setVisible(true);
+        new Global_Functions().createPanels(this, panels);
+        createLabels();
+        createFields();
+        createButtons();
+        new Global_Functions().createMainFrame(this);
     }
 
     public static void main(String[] args) {

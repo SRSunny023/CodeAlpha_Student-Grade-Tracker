@@ -12,11 +12,6 @@ public class Inactivity_Manager {
     public static void startWatching() {
 
         timer = new Timer(TIMEOUT_MS, e -> {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Program closed automatically due to 30 minute of global inactivity.",
-                    "Inactivity Timeout",
-                    JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         });
         timer.setRepeats(false);

@@ -2,13 +2,9 @@ package service;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-
+import java.io.*;
 import javax.swing.*;
-
-import global.Global_Variables;
+import global.*;
 
 public class Edit_Student implements ActionListener {
 

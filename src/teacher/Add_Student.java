@@ -11,20 +11,31 @@ import model.*;
 
 public class Add_Student extends JFrame implements ActionListener {
 
-    JLabel nameLabel, idLabel;
-    JTextField nameField, idField;
-    JButton addStudent, back, exit;
-    JPanel leftPanel,rightPanel;
-
     String idPrefix = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-M-"));
+
+    JButton[] buttons = new JButton[] {
+            new JButton("Add Student"),
+            new JButton("Back"),
+            new JButton("Exit")
+    };
+
+    JLabel[] labels = new JLabel[] {
+            new JLabel("Enter Name:"),
+            new JLabel("Enter ID:")
+    };
+
+    JTextField[] fields = new JTextField[] {
+            new JTextField(),
+            new JTextField(idPrefix)
+    };
+
+    JPanel[] panels = new JPanel[] {
+            new JPanel(),
+            new JPanel()
+    };
 
     public Add_Student() {
 
-        createLeftPanel();
-        createRightPanel();
-        createLabels();
-        createFields();
-        createButtons();
         createMenu();
 
     }
@@ -32,10 +43,10 @@ public class Add_Student extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == addStudent) {
+        if (e.getSource() == buttons[0]) {
 
-            String name = nameField.getText();
-            String id = idField.getText();
+            String name = fields[0].getText();
+            String id = fields[1].getText();
 
             if (name.isEmpty() || id.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -67,18 +78,17 @@ public class Add_Student extends JFrame implements ActionListener {
                 ex.printStackTrace();
             }
 
-            nameField.setText("");
-            idField.setText(idPrefix);
+            fields[0].setText("");
+            fields[1].setText(idPrefix);
 
-        } else if (e.getSource() == back) {
+        } else if (e.getSource() == buttons[1]) {
 
-            setVisible(false);
-            dispose();
+            new Global_Functions().clearScreen(this);
             new Teacher_Portal();
 
         } else {
 
-            System.exit(0);
+            new Global_Functions().exitApp(this);
 
         }
 
@@ -103,88 +113,68 @@ public class Add_Student extends JFrame implements ActionListener {
     }
 
     private void createButtons() {
-        addStudent = new JButton("Add Student");
-        addStudent.setFont(new Font("Arial", Font.BOLD, 26));
-        addStudent.setForeground(Color.WHITE);
-        addStudent.setBackground(Color.BLACK);
-        addStudent.setBounds(50, 344, 200, 50);
-        addStudent.setFocusPainted(false);
-        addStudent.addActionListener(this);
-        rightPanel.add(addStudent);
 
-        back = new JButton("Back");
-        back.setFont(new Font("Arial", Font.BOLD, 26));
-        back.setForeground(Color.WHITE);
-        back.setBackground(Color.BLACK);
-        back.setBounds(260, 344, 200, 50);
-        back.setFocusPainted(false);
-        back.addActionListener(this);
-        rightPanel.add(back);
+        for (int i = 0; i < buttons.length; i++) {
 
-        exit = new JButton("Exit");
-        exit.setFont(new Font("Arial", Font.BOLD, 26));
-        exit.setForeground(Color.BLACK);
-        exit.setBackground(Color.ORANGE);
-        exit.setBounds(0, 718, 512, 50);
-        exit.setFocusPainted(false);
-        exit.addActionListener(this);
-        rightPanel.add(exit);
+            buttons[i].setFont(new Font("Arial", Font.BOLD, 26));
+
+            if (buttons[i].getText().equals("Exit")) {
+                buttons[i].setForeground(Color.BLACK);
+                buttons[i].setBackground(Color.ORANGE);
+            } else {
+                buttons[i].setForeground(Color.WHITE);
+                buttons[i].setBackground(Color.BLACK);
+            }
+
+            buttons[i].setFocusPainted(false);
+            buttons[i].addActionListener(this);
+
+            if (buttons[i].getText().equals("Exit")) {
+                buttons[i].setBounds(0, 718, 512, 50);
+            } else {
+                buttons[i].setBounds(50 + (210 * i), 344, 200, 50);
+            }
+
+            panels[1].add(buttons[i]);
+
+        }
+
     }
 
     private void createFields() {
-        nameField = new JTextField();
-        nameField.setFont(new Font("Arial", Font.BOLD, 26));
-        nameField.setBounds(260, 224, 200, 50);
-        nameField.setForeground(Color.BLACK);
-        rightPanel.add(nameField);
 
-        idField = new JTextField(idPrefix);
-        idField.setFont(new Font("Arial", Font.BOLD, 26));
-        idField.setBounds(260, 284, 200, 50);
-        idField.setForeground(Color.BLACK);
-        rightPanel.add(idField);
+        for (int i = 0; i < fields.length; i++) {
+
+            fields[i].setFont(new Font("Arial", Font.BOLD, 26));
+            fields[i].setForeground(Color.BLACK);
+            fields[i].setBounds(260, 224 + (60 * i), 200, 50);
+            panels[1].add(fields[i]);
+
+        }
+
     }
 
     private void createLabels() {
-        nameLabel = new JLabel("Enter Name:");
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 26));
-        nameLabel.setBounds(50, 224, 200, 50);
-        nameLabel.setForeground(Color.WHITE);
-        rightPanel.add(nameLabel);
 
-        idLabel = new JLabel("Enter ID:");
-        idLabel.setFont(new Font("Arial", Font.BOLD, 26));
-        idLabel.setBounds(50, 284, 200, 50);
-        idLabel.setForeground(Color.WHITE);
-        rightPanel.add(idLabel);
-    }
+        for (int i = 0; i < labels.length; i++) {
 
-    private void createRightPanel() {
-        rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        rightPanel.setForeground(Color.WHITE);
-        rightPanel.setBackground(Color.BLACK);
-        add(rightPanel);
-    }
+            labels[i].setFont(new Font("Arial", Font.BOLD, 26));
+            labels[i].setForeground(Color.WHITE);
+            labels[i].setBounds(50, 224 + (60 * i), 200, 50);
+            panels[1].add(labels[i]);
 
-    private void createLeftPanel() {
-        leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        leftPanel.setForeground(Color.BLACK);
-        leftPanel.setBackground(Color.WHITE);
-        add(leftPanel);
+        }
+
     }
 
     private void createMenu() {
 
-        getContentPane().setBackground(Color.BLACK);
-        setLayout(null);
-        setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        setVisible(true);
+        new Global_Functions().createPanels(this,panels);
+        createLabels();
+        createFields();
+        createButtons();
+        new Global_Functions().createMainFrame(this);
+
     }
 
 }

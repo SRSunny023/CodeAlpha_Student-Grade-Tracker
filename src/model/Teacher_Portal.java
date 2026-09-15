@@ -10,14 +10,24 @@ import ui.*;
 
 public class Teacher_Portal extends JFrame implements ActionListener {
 
-    JPanel leftPanel, rightPanel;
-    JButton addStudent, searchStudent, showAllStudent, enterGrades, viewStudentReport, viewAllReport, logOut, exit;
+    JPanel[] panels = new JPanel[] {
+            new JPanel(),
+            new JPanel()
+    };
+
+    JButton[] buttons = new JButton[]{
+        new JButton("Add Student"),
+        new JButton("Search Student"),
+        new JButton("Show All Student"),
+        new JButton("Enter Grades"),
+        new JButton("View Student Report"),
+        new JButton("View All Student Report"),
+        new JButton("Log Out"),
+        new JButton("Exit")
+    };
 
     public Teacher_Portal() {
 
-        createLeftPanel();
-        createRightPanel();
-        createButtons();
         createMenu();
 
     }
@@ -25,47 +35,43 @@ public class Teacher_Portal extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == addStudent) {
+        if (e.getSource() == buttons[0]) {
 
-            setVisible(false);
-            dispose();
+            new Global_Functions().clearScreen(this);
             new Add_Student();
 
         }
 
-        else if (e.getSource() == searchStudent) {
+        else if (e.getSource() == buttons[1]) {
 
         }
 
-        else if (e.getSource() == showAllStudent) {
+        else if (e.getSource() == buttons[2]) {
 
-            setVisible(false);
-            dispose();
+            new Global_Functions().clearScreen(this);
             new Show_All_Student("showAllStudent");
 
         }
 
-        else if (e.getSource() == enterGrades) {
+        else if (e.getSource() == buttons[3]) {
 
-            setVisible(false);
-            dispose();
+            new Global_Functions().clearScreen(this);
             new Show_All_Student("enterGrades");
 
         }
 
-        else if (e.getSource() == viewStudentReport) {
+        else if (e.getSource() == buttons[4]) {
 
         }
 
-        else if (e.getSource() == viewAllReport) {
+        else if (e.getSource() == buttons[5]) {
 
-            setVisible(false);
-            dispose();
+            new Global_Functions().clearScreen(this);
             new View_All_Student_Report();
 
         }
 
-        else if (e.getSource() == logOut) {
+        else if (e.getSource() == buttons[6]) {
 
             try {
 
@@ -77,131 +83,41 @@ public class Teacher_Portal extends JFrame implements ActionListener {
                 ex.printStackTrace();
             }
 
-            setVisible(false);
-            dispose();
-
+            new Global_Functions().clearScreen(this);
             new Main_Menu();
 
         }
 
         else {
 
-            System.exit(0);
+            new Global_Functions().exitApp(this);
 
         }
 
     }
 
-    public void showButtonsVisible(boolean show) {
-        addStudent.setVisible(show);
-        searchStudent.setVisible(show);
-        showAllStudent.setVisible(show);
-        enterGrades.setVisible(show);
-        viewStudentReport.setVisible(show);
-        viewAllReport.setVisible(show);
-        logOut.setVisible(show);
-        exit.setVisible(show);
-    }
-
     private void createButtons() {
-        addStudent = new JButton("Add Student");
-        searchStudent = new JButton("Search Student");
-        showAllStudent = new JButton("Show All Student");
-        enterGrades = new JButton("Enter Grades");
-        viewStudentReport = new JButton("View Student Report");
-        viewAllReport = new JButton("View All Student Report");
-        logOut = new JButton("Log Out");
-        exit = new JButton("Exit");
 
-        addStudent.setBounds(106, 200, 300, 30);
-        searchStudent.setBounds(106, 200 + (40 * 1), 300, 30);
-        showAllStudent.setBounds(106, 200 + (40 * 2), 300, 30);
-        enterGrades.setBounds(106, 200 + (40 * 3), 300, 30);
-        viewStudentReport.setBounds(106, 200 + (40 * 4), 300, 30);
-        viewAllReport.setBounds(106, 200 + (40 * 5), 300, 30);
-        logOut.setBounds(106, 200 + (40 * 6), 300, 30);
-        exit.setBounds(106, 200 + (40 * 7), 300, 30);
+        for(int i=0; i<buttons.length; i++){
 
-        addStudent.setFocusPainted(false);
-        searchStudent.setFocusPainted(false);
-        showAllStudent.setFocusPainted(false);
-        enterGrades.setFocusPainted(false);
-        viewStudentReport.setFocusPainted(false);
-        viewAllReport.setFocusPainted(false);
-        logOut.setFocusPainted(false);
-        exit.setFocusPainted(false);
+            buttons[i].setBounds(106, 200 + (40*i), 300, 30);
+            buttons[i].setFocusPainted(false);
+            buttons[i].setFont(Global_Variables.btnFont);
+            buttons[i].setForeground(Color.WHITE);
+            buttons[i].setBackground(Color.BLACK);
+            buttons[i].addActionListener(this);
+            panels[0].add(buttons[i]);
 
-        addStudent.setFont(Global_Variables.btnFont);
-        searchStudent.setFont(Global_Variables.btnFont);
-        showAllStudent.setFont(Global_Variables.btnFont);
-        enterGrades.setFont(Global_Variables.btnFont);
-        viewStudentReport.setFont(Global_Variables.btnFont);
-        viewAllReport.setFont(Global_Variables.btnFont);
-        logOut.setFont(Global_Variables.btnFont);
-        exit.setFont(Global_Variables.btnFont);
+        }
 
-        addStudent.setForeground(Color.WHITE);
-        searchStudent.setForeground(Color.WHITE);
-        showAllStudent.setForeground(Color.WHITE);
-        enterGrades.setForeground(Color.WHITE);
-        viewStudentReport.setForeground(Color.WHITE);
-        viewAllReport.setForeground(Color.WHITE);
-        logOut.setForeground(Color.WHITE);
-        exit.setForeground(Color.WHITE);
-
-        addStudent.setBackground(Color.BLACK);
-        searchStudent.setBackground(Color.BLACK);
-        showAllStudent.setBackground(Color.BLACK);
-        enterGrades.setBackground(Color.BLACK);
-        viewStudentReport.setBackground(Color.BLACK);
-        viewAllReport.setBackground(Color.BLACK);
-        logOut.setBackground(Color.BLACK);
-        exit.setBackground(Color.BLACK);
-
-        leftPanel.add(addStudent);
-        leftPanel.add(searchStudent);
-        leftPanel.add(showAllStudent);
-        leftPanel.add(enterGrades);
-        leftPanel.add(viewStudentReport);
-        leftPanel.add(viewAllReport);
-        leftPanel.add(logOut);
-        leftPanel.add(exit);
-
-        addStudent.addActionListener(this);
-        searchStudent.addActionListener(this);
-        showAllStudent.addActionListener(this);
-        enterGrades.addActionListener(this);
-        viewStudentReport.addActionListener(this);
-        viewAllReport.addActionListener(this);
-        logOut.addActionListener(this);
-        exit.addActionListener(this);
-    }
-
-    private void createLeftPanel() {
-        leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setBounds(0, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        leftPanel.setForeground(Color.BLACK);
-        leftPanel.setBackground(Color.WHITE);
-        add(leftPanel);
-    }
-
-    private void createRightPanel() {
-        rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setBounds(513, 0, 512, Global_Variables.WINDOW_HEIGHT);
-        rightPanel.setForeground(Color.WHITE);
-        rightPanel.setBackground(Color.BLACK);
-        add(rightPanel);
     }
 
     private void createMenu() {
-        getContentPane().setBackground(Color.BLACK);
-        setLayout(null);
-        setUndecorated(true);
-        setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
-        setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
-        setVisible(true);
+
+        new Global_Functions().createPanels(this,panels);
+        createButtons();
+        new Global_Functions().createMainFrame(this);
+
     }
 
     public static void main(String[] args) {
