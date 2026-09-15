@@ -280,10 +280,4 @@ public class View_Student_Report extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args){
-
-        new View_Student_Report("Napusa", "26-9-10", "Student Portal", "Full Result");
-
-    }
-
 }

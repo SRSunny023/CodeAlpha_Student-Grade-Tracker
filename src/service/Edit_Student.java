@@ -14,11 +14,13 @@ public class Edit_Student implements ActionListener {
     JDialog dialog;
 
     String name, id;
+    JFrame parentFrame;
 
-    public Edit_Student(String name, String id) {
+    public Edit_Student(String name, String id, JFrame parentFrame) {
 
         this.name = name;
         this.id = id;
+        this.parentFrame = parentFrame;
 
         createFields(name, id);
         createButtons();
@@ -193,19 +195,14 @@ public class Edit_Student implements ActionListener {
     }
 
     private void createDialog() {
-        dialog = new JDialog();
+        dialog = new JDialog(parentFrame, true);
         dialog.setUndecorated(true);
-        dialog.setModal(true);
 
         dialog.add(panel);
         dialog.pack();
         dialog.setLocation(Global_Variables.X_POSITION + 100, Global_Variables.Y_POSITION + 300);
 
         dialog.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new Edit_Student("John Doe", "12345");
     }
 
 }

@@ -2,17 +2,27 @@ package teacher;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import javax.swing.*;
-import global.*;
-import model.*;
-import service.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
-public class View_Specific_Student_Report extends JFrame implements ActionListener {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-    JPanel[] panels = new JPanel[] {
-            new JPanel(),
-            new JPanel()
+import global.Global_Functions;
+import global.Global_Variables;
+import model.Teacher_Portal;
+import service.Edit_Student;
+
+public class Search_Student extends JFrame implements ActionListener {
+
+    JPanel[] panels = new JPanel[]{
+        new JPanel(),
+        new JPanel()
     };
 
     JButton[] buttons = new JButton[] {
@@ -24,17 +34,20 @@ public class View_Specific_Student_Report extends JFrame implements ActionListen
     };
 
     JTextField field;
+    JButton edit;
 
-    public View_Specific_Student_Report() {
+    boolean searchByName = true;
+
+    String name, id;
+
+    public Search_Student(){
 
         createMenu();
 
     }
 
-    boolean searchByName = true;
-
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
 
         if (e.getSource() == buttons[0] || e.getSource() == buttons[1]) {
 
@@ -50,8 +63,6 @@ public class View_Specific_Student_Report extends JFrame implements ActionListen
         }
 
         else if (e.getSource() == buttons[2]) {
-
-            String name, id;
 
             if (searchByName) {
 
@@ -95,8 +106,33 @@ public class View_Specific_Student_Report extends JFrame implements ActionListen
 
             }
 
-            new Global_Functions().clearScreen(this);
-            new View_Student_Report(name, id, "Teacher Portal", "Full Result");
+            buttons[2].setVisible(false);
+            field.setVisible(false);
+
+            JLabel nameLabel = new JLabel("Name: " + name);
+            JLabel idLabel = new JLabel("ID: " + id);
+
+            nameLabel.setFont(new Font("Arial", Font.BOLD, 30));
+            idLabel.setFont(new Font("Arial", Font.BOLD, 30));
+
+            nameLabel.setForeground(Color.WHITE);
+            idLabel.setForeground(Color.WHITE);
+
+            nameLabel.setBounds(156, 280, 200, 30);
+            idLabel.setBounds(156, 310, 200, 30);
+
+            panels[1].add(nameLabel);
+            panels[1].add(idLabel);
+
+            edit = new JButton("Edit");
+            edit.setFocusPainted(false);
+            edit.setFont(new Font("Arial", Font.BOLD, 30));
+            edit.setBackground(Color.BLACK);
+            edit.setForeground(Color.WHITE);
+            edit.addActionListener(this);
+            edit.setBounds(156, 480, 200, 30);
+            panels[1].add(edit);
+
 
         }
 
@@ -104,6 +140,12 @@ public class View_Specific_Student_Report extends JFrame implements ActionListen
 
             new Global_Functions().clearScreen(this);
             new Teacher_Portal();
+
+        }
+
+        else if(e.getSource() == edit){
+
+            new Edit_Student(name, id, this);
 
         }
 
@@ -203,10 +245,10 @@ public class View_Specific_Student_Report extends JFrame implements ActionListen
 
     }
 
-    private void createMenu() {
+    private void createMenu(){
 
-        createButtons();
         new Global_Functions().createPanels(this, panels, "Teacher Portal");
+        createButtons();
         new Global_Functions().createMainFrame(this);
 
     }

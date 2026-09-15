@@ -208,8 +208,4 @@ public class Update_Password extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args){
-        new Update_Password("Napusa", "26-9-9");
-    }
-
 }

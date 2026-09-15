@@ -52,7 +52,7 @@ public class Show_All_Student extends JFrame implements ActionListener {
 
                 if (type.equals("showAllStudent")) {
 
-                    new Edit_Student(name, id);
+                    new Edit_Student(name, id, this);
 
                     model.setRowCount(0);
                     loadStudents();

@@ -44,6 +44,9 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
         else if (e.getSource() == buttons[1]) {
 
+            new Global_Functions().clearScreen(this);
+            new Search_Student();
+
         }
 
         else if (e.getSource() == buttons[2]) {
