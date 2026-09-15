@@ -102,7 +102,7 @@ public class View_Student_Report extends JFrame implements ActionListener {
 
             if(parts.length>=2){
                 labels[3].setText(parts[1]);
-                labels[4].setText(parts[0] + " / 1000");
+                labels[4].setText(parts[0] + " / " + new Global_Functions().countTotalMarks());
             }
 
             br.close();

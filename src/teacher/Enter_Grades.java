@@ -5,40 +5,21 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.table.*;
+
 import global.*;
 
 public class Enter_Grades extends JFrame implements ActionListener {
 
-    public static final int COURSE_SIZE = 10;
+    JTable table;
+    JScrollPane scrollPane;
+    DefaultTableModel model;
     String name, id;
     JPanel[] panels = new JPanel[] {
             new JPanel(),
             new JPanel()
     };
-    JLabel[] labels = new JLabel[] {
-            new JLabel("C Programming"),
-            new JLabel("Data Structure"),
-            new JLabel("Discrete Mathematics"),
-            new JLabel("Digital Logic Design"),
-            new JLabel("Artificial Intelligence"),
-            new JLabel("Machine Learning"),
-            new JLabel("Software Engineering"),
-            new JLabel("OOP"),
-            new JLabel("Algorithms"),
-            new JLabel("Computer Fundamentals")
-    };
-    JTextField[] fields = new JTextField[] {
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField(),
-            new JTextField()
-    };
+
     JButton[] buttons = new JButton[] {
             new JButton("Exit"),
             new JButton("Submit"),
@@ -71,15 +52,16 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
         else if (e.getSource() == buttons[1]) {
 
-            int[] marks = new int[COURSE_SIZE];
-            String[] grades = new String[COURSE_SIZE];
-            Double[] points = new Double[COURSE_SIZE];
+            ArrayList<Integer> marks = new ArrayList<>();
+            ArrayList<String> grades = new ArrayList<>();
+            ArrayList<Double> points = new ArrayList<>();
 
-            for (int i = 0; i < fields.length; i++) {
+            for (int i = 0; i < table.getRowCount(); i++) {
 
                 try {
 
-                    int score = Integer.parseInt(fields[i].getText().trim());
+                    String selectedRow = (String) model.getValueAt(i, 1);
+                    int score = Integer.parseInt(selectedRow);
 
                     if (score < 0 || score > 100) {
                         JOptionPane.showMessageDialog(this, "Invalid Marks Input (Choose Between 0-100)", "Error",
@@ -87,38 +69,38 @@ public class Enter_Grades extends JFrame implements ActionListener {
                         return;
                     }
 
-                    marks[i] = score;
+                    marks.add(score);
 
                     if (score >= 80) {
-                        grades[i] = "A+";
-                        points[i] = 4.00;
+                        grades.add("A+");
+                        points.add(4.00);
                     } else if (score >= 75) {
-                        grades[i] = "A";
-                        points[i] = 3.75;
+                        grades.add("A");
+                        points.add(3.75);
                     } else if (score >= 70) {
-                        grades[i] = "A-";
-                        points[i] = 3.50;
+                        grades.add("A-");
+                        points.add(3.50);
                     } else if (score >= 65) {
-                        grades[i] = "B+";
-                        points[i] = 3.25;
+                        grades.add("B+");
+                        points.add(3.25);
                     } else if (score >= 60) {
-                        grades[i] = "B";
-                        points[i] = 3.00;
+                        grades.add("B");
+                        points.add(3.00);
                     } else if (score >= 55) {
-                        grades[i] = "B-";
-                        points[i] = 2.75;
+                        grades.add("B-");
+                        points.add(2.75);
                     } else if (score >= 50) {
-                        grades[i] = "C+";
-                        points[i] = 2.50;
+                        grades.add("C+");
+                        points.add(2.50);
                     } else if (score >= 45) {
-                        grades[i] = "C";
-                        points[i] = 2.25;
+                        grades.add("C");
+                        points.add(2.25);
                     } else if (score >= 40) {
-                        grades[i] = "D";
-                        points[i] = 2.00;
+                        grades.add("D");
+                        points.add(2.00);
                     } else {
-                        grades[i] = "F";
-                        points[i] = 0.00;
+                        grades.add("F");
+                        points.add(0.00);
                     }
 
                 } catch (Exception ex) {
@@ -131,11 +113,11 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
             int totalMarks = 0;
             Double totalPoints = 0.0;
-            for (int i = 0; i < COURSE_SIZE; i++) {
-                totalMarks += marks[i];
-                totalPoints += points[i];
+            for (int i = 0; i < marks.size(); i++) {
+                totalMarks += marks.get(i);
+                totalPoints += points.get(i);
             }
-            double rawCgpa = totalPoints / (double) COURSE_SIZE;
+            double rawCgpa = totalPoints / (double) marks.size();
             double cgpa = Math.round(rawCgpa * 100.0) / 100.0;
 
             File file1 = new File(Global_Variables.MARKSHEET_FOLDER + id + ".txt");
@@ -154,8 +136,9 @@ public class Enter_Grades extends JFrame implements ActionListener {
                 FileWriter fw = new FileWriter(file1);
                 FileWriter fw1 = new FileWriter(file2);
 
-                for (int i = 0; i < COURSE_SIZE; i++) {
-                    String line = labels[i].getText() + "|" + marks[i] + "|" + grades[i] + "|" + points[i] + "\n";
+                for (int i = 0; i < marks.size(); i++) {
+                    String courseName = (String) model.getValueAt(i, 0);
+                    String line = courseName + "|" + marks.get(i) + "|" + grades.get(i) + "|" + points.get(i) + "\n";
                     fw.write(line);
                 }
                 fw1.write(totalMarks + "|" + cgpa + "\n");
@@ -166,8 +149,7 @@ public class Enter_Grades extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Grades Successfully Updated", "Success",
                         JOptionPane.PLAIN_MESSAGE);
 
-                setVisible(false);
-                dispose();
+                new Global_Functions().clearScreen(this);
                 new Show_All_Student("enterGrades");
 
             } catch (Exception ex) {
@@ -182,47 +164,6 @@ public class Enter_Grades extends JFrame implements ActionListener {
             new Global_Functions().clearScreen(this);
             new Show_All_Student("enterGrades");
 
-        }
-
-    }
-
-    private void loadMarks(String[] marks) {
-
-        File file = new File(Global_Variables.MARKSHEET_FOLDER + id + ".txt");
-
-        try {
-
-            if (!file.exists()) {
-                Arrays.fill(marks, "0");
-                return;
-            }
-
-            BufferedReader br = new BufferedReader(new FileReader(file));
-
-            String line;
-
-            int i = 0;
-
-            while ((line = br.readLine()) != null) {
-
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] parts = line.split("\\|");
-
-                if (parts.length >= 4) {
-
-                    marks[i++] = parts[1];
-
-                }
-
-            }
-
-            br.close();
-
-        } catch (Exception ex) {
-            Arrays.fill(marks, "0");
         }
 
     }
@@ -248,32 +189,81 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
     }
 
-    private void createLabels() {
+    private void loadCourses() {
 
-        for (int i = 0; i < COURSE_SIZE; i++) {
-            labels[i].setFont(new Font("Arial", Font.BOLD, 16));
-            labels[i].setForeground(Color.BLACK);
-            labels[i].setBounds(40, 130 + (40 * (i + 1)), 250, 30);
-            panels[0].add(labels[i]);
+        File file = new File(Global_Variables.MARKSHEET_FOLDER + id + ".txt");
+
+        try {
+
+            if(!file.exists()){
+
+                BufferedReader br = new BufferedReader(new FileReader(Global_Variables.COURSE_LIST));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (line.trim().isEmpty()) {
+                        continue;
+                    }
+
+                    model.addRow(new Object[]{line, 0});
+
+                }
+                br.close();
+            } else{
+
+                BufferedReader br = new BufferedReader(new FileReader(file));
+
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    if (line.trim().isEmpty()) {
+                        continue;
+                    }
+                    String[] parts = line.split("\\|");
+                    if(parts.length>=4){
+                        model.addRow(new Object[]{parts[0],parts[1]});
+                    }
+
+                }
+                br.close();
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error loading courses: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
-    private void createFields() {
+    private void createTable() {
+        String[] columns = { "Course", "Mark" };
+        model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(column==1) return true;
+                else return false;
+            }
+        };
 
-        String[] marks = new String[COURSE_SIZE];
-        loadMarks(marks);
+        table = new JTable(model);
+        table.setFont(new Font("Arial", Font.PLAIN, 18));
+        table.setRowHeight(30);
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
+        table.getTableHeader().setBackground(Color.WHITE);
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.setBackground(Color.WHITE);
+        table.setForeground(Color.BLACK);
+        table.getColumnModel().getColumn(0).setPreferredWidth(250);
 
-        for (int i = 0; i < COURSE_SIZE; i++) {
-            fields[i].setText(marks[i]);
-            fields[i].setFont(new Font("Arial", Font.BOLD, 16));
-            fields[i].setForeground(Color.WHITE);
-            fields[i].setBackground(Color.BLACK);
-            fields[i].setBounds(290, 130 + (40 * (i + 1)), 150, 30);
-            panels[0].add(fields[i]);
-        }
+        scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(40, 200, 430, 400);
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.getViewport().setForeground(Color.BLACK);
+
+        panels[0].add(scrollPane);
 
     }
+
 
     private void createButtons() {
 
@@ -293,9 +283,9 @@ public class Enter_Grades extends JFrame implements ActionListener {
 
         new Global_Functions().createPanels(this,panels, "Teacher Portal");
         createStudentDetails();
-        createLabels();
-        createFields();
         createButtons();
+        createTable();
+        loadCourses();
         new Global_Functions().createMainFrame(this);
 
     }

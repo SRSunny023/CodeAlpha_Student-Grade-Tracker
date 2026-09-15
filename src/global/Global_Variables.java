@@ -14,6 +14,7 @@ public class Global_Variables {
 
     public static final String STUDENT_ID = DATA_FOLDER + "Student_ID.txt";
     public static final String CURRENT_SESSION = DATA_FOLDER + "Current_Session.txt";
+    public static final String COURSE_LIST = DATA_FOLDER + "Course_List.txt";
 
     public static final String WELCOME_ICON = ICON_FOLDER + "Welcome.png";
 

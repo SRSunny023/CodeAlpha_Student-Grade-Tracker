@@ -1,6 +1,10 @@
 package global;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,6 +52,35 @@ public class Global_Functions {
         parentFrame.setLocation(Global_Variables.X_POSITION, Global_Variables.Y_POSITION);
         parentFrame.setSize(Global_Variables.WINDOW_WIDTH, Global_Variables.WINDOW_HEIGHT);
         parentFrame.setVisible(true);
+
+    }
+
+    public String countTotalMarks(){
+
+        File file = new File(Global_Variables.COURSE_LIST);
+
+        try{
+
+            if(!file.exists()){
+                return "0";
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            int count = 0;
+            while((line=br.readLine())!=null){
+                if(line.trim().isEmpty()){
+                    continue;
+                }
+                count++;
+            }
+            br.close();
+            return String.valueOf(count*100);
+
+
+        } catch(Exception e){
+            return "0";
+        }
 
     }
 

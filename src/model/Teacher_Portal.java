@@ -17,6 +17,8 @@ public class Teacher_Portal extends JFrame implements ActionListener {
 
     JButton[] buttons = new JButton[]{
         new JButton("Add Student"),
+        new JButton("Add Course"),
+        new JButton("View Courses"),
         new JButton("Search Student"),
         new JButton("Show All Student"),
         new JButton("Enter Grades"),
@@ -45,39 +47,53 @@ public class Teacher_Portal extends JFrame implements ActionListener {
         else if (e.getSource() == buttons[1]) {
 
             new Global_Functions().clearScreen(this);
-            new Search_Student();
+            new Add_Course();
 
         }
 
         else if (e.getSource() == buttons[2]) {
 
             new Global_Functions().clearScreen(this);
-            new Show_All_Student("showAllStudent");
+            new View_All_Course();
 
         }
 
         else if (e.getSource() == buttons[3]) {
 
             new Global_Functions().clearScreen(this);
-            new Show_All_Student("enterGrades");
+            new Search_Student();
 
         }
 
         else if (e.getSource() == buttons[4]) {
 
             new Global_Functions().clearScreen(this);
-            new View_Specific_Student_Report();
+            new Show_All_Student("showAllStudent");
 
         }
 
         else if (e.getSource() == buttons[5]) {
 
             new Global_Functions().clearScreen(this);
-            new View_All_Student_Report();
+            new Show_All_Student("enterGrades");
 
         }
 
         else if (e.getSource() == buttons[6]) {
+
+            new Global_Functions().clearScreen(this);
+            new View_Specific_Student_Report();
+
+        }
+
+        else if (e.getSource() == buttons[7]) {
+
+            new Global_Functions().clearScreen(this);
+            new View_All_Student_Report();
+
+        }
+
+        else if (e.getSource() == buttons[8]) {
 
             try {
 
