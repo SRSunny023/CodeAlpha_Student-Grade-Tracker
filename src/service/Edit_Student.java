@@ -49,8 +49,8 @@ public class Edit_Student implements ActionListener {
                 return;
             }
 
-            if (!newId.matches("\\d{2}-\\d{1}-\\d+")) {
-                JOptionPane.showMessageDialog(dialog, "ID must be in the format yy-M-id!", "Error",
+            if (!newId.matches("\\d{2}-(?:[1-9]|1[0-2])-\\d+")) {
+                JOptionPane.showMessageDialog(dialog, "ID must be in the format yy-M(M)-id!", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }

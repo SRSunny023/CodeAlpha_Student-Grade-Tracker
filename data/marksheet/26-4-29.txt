@@ -1,0 +1,13 @@
+C Programming|81|A+|4.0
+Data Structure|80|A+|4.0
+Discrete Mathematics|79|A|3.75
+Digital Logic Design|78|A|3.75
+Artificial Intelligence|77|A|3.75
+Machine Learning|89|A+|4.0
+Physics-I|90|A+|4.0
+OOP|46|C|2.25
+Algorithms|55|B-|2.75
+Computer Fundamentals|46|C|2.25
+Engineering Mathematics|68|B+|3.25
+Physics-II|69|B+|3.25
+Art of Living|47|C|2.25

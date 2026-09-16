@@ -88,8 +88,8 @@ public class Search_Student extends JFrame implements ActionListener {
                 id = field.getText();
                 name = findId("Name", id);
 
-                if (!id.matches("\\d{2}-\\d{1}-\\d+")) {
-                    JOptionPane.showMessageDialog(this, "ID must be in the format yy-M-id!", "Error",
+                if (!id.matches("\\d{2}-(?:[1-9]|1[0-2])-\\d+")) {
+                    JOptionPane.showMessageDialog(this, "ID must be in the format yy-M(M)-id!", "Error",
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }

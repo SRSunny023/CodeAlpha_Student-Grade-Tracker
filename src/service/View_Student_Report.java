@@ -236,7 +236,10 @@ public class View_Student_Report extends JFrame implements ActionListener {
                 labels[i].setBounds(40, (type.equals("Full Result")) ? 620 + (30*i) : 200 + (30*i), 250, 30);
             } else{
                 labels[i].setBounds(200, (type.equals("Full Result")) ? 620 + (30*(i-3)) : 200 + (30*(i-3)), 250, 30);
-                labels[i].setText("Result Not Published Yet");
+                int[] rank = new Ranking().getRanking(id);
+                String position = Integer.toString(rank[0]);
+                String totalStudent = Integer.toString(rank[1]);
+                labels[i].setText(position + " / " + totalStudent);
             }
 
             if(portalType.equals("Student Portal")){
